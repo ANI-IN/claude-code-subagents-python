@@ -25,15 +25,14 @@ The subagents themselves are what you build while working through the exercises.
 
 **Some code in this project is flawed on purpose. Do not fix it, and do not ask a subagent to fix it.** The flaws give the review subagent something real to find.
 
-The module documents its own planted issues in the docstring at the top of `src/churn_model/training/prepare.py`:
+`src/churn_model/training/prepare.py` contains four planted issues:
 
-```text
-Deliberate issues for the pipeline-reviewer to find:
-  1. Target leakage: the churned label is used as a model feature
-  2. Train/test contamination: scaling is fitted on all rows before the split
-  3. Unseeded shuffle: the split changes on every run (and duplicates split.py)
-  4. Missing values silently replaced with 0.0
-```
+1. **Target leakage.** The `churned` label is used as a model feature.
+2. **Train/test contamination.** Scaling is fitted on all rows before the split.
+3. **Unseeded shuffle.** The split changes on every run, and it duplicates `split_dataset` in `split.py`.
+4. **Missing values silently replaced with `0.0`.**
+
+The file itself does not list them, so the review subagent has to find them from the code. Read this list now if you like, but try the review in exercise 6 before you compare.
 
 Each is a mistake that makes a model look better in evaluation than it will be in production, or makes results impossible to reproduce. When an exercise leads you to one of these issues, your task is to notice it and understand why it matters, not to repair it.
 
@@ -50,7 +49,7 @@ The test suite passes on `main` even with these flaws in place. `tests/test_prep
 
 - Python 3.10 or newer. Check with `python3 --version`. On some systems, including macOS, `python3` can be older than 3.10. If so, install a newer Python and create the virtual environment with it by name, for example `python3.12 -m venv .venv`.
 - Git.
-- [Claude Code](https://docs.claude.com/en/docs/claude-code/overview) installed, so that `claude` is available in your terminal.
+- [Claude Code](https://code.claude.com/docs/en/overview) installed, so that `claude` is available in your terminal.
 
 ## 5. Setup
 
@@ -75,7 +74,7 @@ pip install -e ".[dev]"
 | Check formatting | `ruff format --check .` |
 | Type check | `mypy` |
 
-All four should pass on both branches. `pytest` reports `36 passed`.
+All four should pass on both branches. `pytest` reports `46 passed`.
 
 ## 7. Project Structure
 
@@ -136,7 +135,7 @@ Follow [exercise 2](exercises/02-build-the-exploration-subagent.md) to create th
 
 ### Step 2: load and verify
 
-Restart Claude Code so it registers the new subagents, then list them:
+Subagents created through `/agents` are available right away. If you wrote or edited a file by hand, restart Claude Code. Then list them:
 
 ```text
 /agents

@@ -13,10 +13,12 @@ def split_dataset(
     seed: int = RANDOM_SEED,
     label_column: str = LABEL_COLUMN,
 ) -> tuple[list[Row], list[Row]]:
-    """Return (train, test) with the same label balance in both sets.
+    """Return (train, test) with about the same label balance in both sets.
 
-    Rows are grouped by label and each group is shuffled by one generator
-    seeded with `seed`, so the same seed always produces the same split.
+    Rows are grouped by label, and each group is split at `test_fraction`.
+    One generator seeded with `seed` shuffles the groups and then both
+    sets, so the same seed always produces the same split and neither set
+    is ordered by label.
     """
     if not 0 < test_fraction < 1:
         raise ValueError("test_fraction must be between 0 and 1")
@@ -37,4 +39,6 @@ def split_dataset(
         test_size = round(len(group) * test_fraction)
         test.extend(group[:test_size])
         train.extend(group[test_size:])
+    rng.shuffle(train)
+    rng.shuffle(test)
     return train, test

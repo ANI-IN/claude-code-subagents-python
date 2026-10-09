@@ -25,6 +25,7 @@ def test_missing_values_are_ignored_when_fitting_and_stay_none() -> None:
     scaled = apply_standardizer(rows, stats)
 
     assert stats["x"].mean == 2.0
+    assert stats["x"].std == 1.0
     assert scaled[1]["x"] is None
 
 

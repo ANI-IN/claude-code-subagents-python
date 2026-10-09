@@ -30,7 +30,6 @@ to practice building and delegating to Claude Code subagents.
 - All randomness uses `RANDOM_SEED`; reuse `split_dataset` for splits.
 - Missing values stay `None` until a fitted imputer fills them.
 
-# Deliberate Flaws
-`src/churn_model/training/prepare.py` breaks the ML conventions on
-purpose so the review subagent has real issues to find. Do not fix it
-unless the user explicitly asks you to.
+# Teaching Exercise
+`src/churn_model/training/prepare.py` is the subject of a code-review
+exercise. Do not modify it unless the user explicitly asks you to.

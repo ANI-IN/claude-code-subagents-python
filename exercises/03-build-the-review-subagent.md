@@ -25,6 +25,14 @@ Choose **Create new agent**, pick **Project** scope, and describe the subagent:
 - Focus areas: target leakage (the label used as a feature), train/test contamination (statistics fitted on data that includes the test set), reproducibility (randomness without a fixed seed), missing values silently dropped or replaced with made-up numbers, and logic that duplicates an existing helper.
 - Output format: a numbered report with Summary, Critical Issues, Major Issues, Minor Issues, an Approval Status of either "Safe to merge" or "Requires changes", and an Obstacles Encountered section.
 
+`/agents` asks for some of these settings in its own steps rather than reading them from your brief. Before you move on, make sure the saved file matches the brief:
+
+- **Name.** Claude proposes a name. If it is not `pipeline-reviewer`, change the `name:` line and the file name to `pipeline-reviewer`. The prompts in later exercises use that exact name.
+- **Tools.** In the tool step, select only Glob, Grep, and Read. The read-only category can include extra tools such as WebFetch, so open the file afterwards and make sure the `tools:` line reads `Glob, Grep, Read`.
+- **Model and color.** Pick Sonnet and Purple in their steps.
+
+Compare the generated file with Option B below. The wording of the system prompt will differ, and that is fine. The name, the tools, and the output format should match.
+
 One phrase in the description is worth adding on purpose: **you must tell the agent precisely which files to review**. With that instruction present, Claude writes a sharper task prompt that names the actual files, instead of leaving the subagent to guess which files matter.
 
 ### Option B: write the file yourself

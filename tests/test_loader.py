@@ -71,3 +71,37 @@ def test_shipped_dataset_loads(dataset_path: Path) -> None:
     assert len(rows) == 40
     assert set(rows[0]) == {*FEATURE_COLUMNS, LABEL_COLUMN}
     assert sum(row[LABEL_COLUMN] == 1.0 for row in rows) == 10
+
+
+@pytest.mark.parametrize("cell", ["inf", "-inf", "nan5"])
+def test_parse_value_rejects_non_finite_or_bad_numbers(cell: str) -> None:
+    with pytest.raises(ValueError):
+        parse_value(cell)
+
+
+@pytest.mark.parametrize("line", ["3,50,1", "3,50,1,0,extra"])
+def test_load_customers_rejects_rows_with_the_wrong_field_count(
+    tmp_path: Path, line: str
+) -> None:
+    path = tmp_path / "bad.csv"
+    path.write_text(
+        f"tenure_months,monthly_charges,support_tickets,churned\n{line}\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="line 2: expected 4 fields"):
+        load_customers(path)
+
+
+@pytest.mark.parametrize("label", ["2", "0.5", "-1"])
+def test_load_customers_rejects_labels_other_than_zero_or_one(
+    tmp_path: Path, label: str
+) -> None:
+    path = tmp_path / "bad.csv"
+    path.write_text(
+        f"tenure_months,monthly_charges,support_tickets,churned\n3,50,1,{label}\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="must be 0 or 1"):
+        load_customers(path)

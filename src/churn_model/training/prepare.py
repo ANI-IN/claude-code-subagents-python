@@ -1,11 +1,6 @@
 """Turn customer records into train and test sets for the churn model.
 
 Newly written module for the review exercise.
-Deliberate issues for the pipeline-reviewer to find:
-  1. Target leakage: the churned label is used as a model feature
-  2. Train/test contamination: scaling is fitted on all rows before the split
-  3. Unseeded shuffle: the split changes on every run (and duplicates split.py)
-  4. Missing values silently replaced with 0.0
 """
 
 import random
