@@ -1,6 +1,6 @@
 # Solution: Three Project Subagents
 
-This branch is the finished result of the exercises. It adds three project-level subagents to `.claude/agents/`. Nothing else changes: the source code, the tests, and the deliberate flaws in `src/churn_model/training/prepare.py` are identical to `main`.
+This branch is the finished result of the exercises. It adds three project-level subagents to `.claude/agents/` (replacing the `.gitkeep` placeholder) and this file. Nothing else changes: the source code, the tests, and the deliberate flaws in `src/churn_model/training/prepare.py` are identical to `main`.
 
 Compare against this branch only after you have built your own subagents.
 
@@ -36,8 +36,8 @@ Use the codebase-explorer: where and how is the train/test split made, and how i
 A correct answer:
 
 - Names `split_dataset` in `src/churn_model/data/split.py` (around line 9) as the place the split is made.
-- Explains that rows are grouped by label and each group is cut at `test_fraction`, so train and test keep the same churn rate (around lines 24 to 39).
-- Explains reproducibility: a `random.Random(seed)` generator (around line 31), with `seed` defaulting to `RANDOM_SEED = 42` in `src/churn_model/config.py` (line 11).
+- Explains that rows are grouped by label and each group is cut at `test_fraction`, so train and test keep about the same churn rate (around lines 26 to 41).
+- Explains reproducibility: one `random.Random(seed)` generator (around line 33) shuffles each group and then both sets, with `seed` defaulting to `RANDOM_SEED = 42` in `src/churn_model/config.py` (line 11).
 - Often adds, as a note, that `src/churn_model/training/prepare.py` does not call `split_dataset` and uses an unseeded `random.shuffle` instead.
 
 Your main conversation should contain only the question and this summary, not the files the subagent read.
