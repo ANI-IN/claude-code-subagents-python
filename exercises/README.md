@@ -2,7 +2,7 @@
 
 These exercises turn the lesson into a hands-on lab. You build two complementary subagents for a small Python churn-model codebase, load them into Claude Code, and delegate a real task to each one. An optional third exercise adds a documentation subagent that shows a different pattern.
 
-Everything here follows the lesson document [`docs/subagents.docx`](../docs/subagents.docx). Work through the files in order. Each one is self-contained and takes only a few minutes.
+Everything here follows the lesson document [`docs/subagents.docx`](../docs/subagents.docx). Work through the files in order. Each one is short and takes only a few minutes.
 
 ## What you are building
 
@@ -19,7 +19,7 @@ On `main`, the `.claude/agents/` folder is intentionally empty so that you build
 ## Before you begin
 
 1. Install Claude Code and confirm the `claude` command runs in your terminal.
-2. Follow the setup in the project [README](../README.md): create a virtual environment, run `pip install -e ".[dev]"`, and confirm that `pytest` reports `36 passed`.
+2. Follow the setup in the project [README](../README.md): create a virtual environment, run `pip install -e ".[dev]"`, and confirm that `pytest` reports `46 passed`.
 3. Start Claude Code from the project root so it can see the source files and the `.claude/agents/` folder.
 
 ## How to use these exercises
@@ -47,6 +47,7 @@ On `main`, the `.claude/agents/` folder is intentionally empty so that you build
 - A defined output format gives the subagent clear stopping points and returns a result the main thread can actually use.
 - Grant each subagent only the tools its job requires. Keep exploration and review read-only, and reserve edit or write access for subagents whose job is to change code.
 - Subagents shine when exploration is separate from execution and you only need the answer. They hurt as expert personas that add nothing, as sequential pipelines where each step depends on the last, and as test runners when you need the full output to debug.
+- Skills and subagents solve different problems. A skill runs inline in your main conversation and injects a standard or checklist into the current task. A subagent runs in a separate context and hands back only a summary.
 
 ## Troubleshooting
 

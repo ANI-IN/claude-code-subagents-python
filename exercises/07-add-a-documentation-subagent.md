@@ -23,6 +23,14 @@ Choose **Create new agent**, pick **Project** scope, and describe the subagent:
 - Output sections: an Overview of what the module does, an Inputs section for the data it expects, a Usage section for the main functions with a short example, and a Data caveats section for leakage, reproducibility, and other limits.
 - A firm rule: read the code to ground every statement, and do not invent behavior that is not in the source.
 
+`/agents` asks for some of these settings in its own steps rather than reading them from your brief. Before you move on, make sure the saved file matches the brief:
+
+- **Name.** Claude proposes a name. If it is not `pipeline-doc-writer`, change the `name:` line and the file name to `pipeline-doc-writer`. The prompts in later exercises use that exact name.
+- **Tools.** In the tool step, select only Glob, Grep, and Read. The read-only category can include extra tools such as WebFetch, so open the file afterwards and make sure the `tools:` line reads `Glob, Grep, Read`.
+- **Model and color.** Pick Sonnet and Green in their steps.
+
+Compare the generated file with Option B below. The wording of the system prompt will differ, and that is fine. The name, the tools, and the output format should match.
+
 ### Option B: write the file yourself
 
 Create `.claude/agents/pipeline-doc-writer.md`:
@@ -70,7 +78,7 @@ The tool list is identical to the other two subagents: Glob, Grep, Read. The doc
 
 ## A note on the sample module
 
-Because `src/churn_model/training/prepare.py` contains deliberate flaws, honest Data caveats for this module describe problems: the label is among the features, scaling is fitted before the split, the split is not seeded, and missing values become zero. That is expected. A grounded documentation subagent reports what the code actually does rather than what the docstring hopes it does. This is the same discipline you would want in a model card.
+Because `src/churn_model/training/prepare.py` contains deliberate flaws, honest Data caveats for this module describe problems: the label is among the features, scaling is fitted before the split, the split is not seeded, and missing values become zero. That is expected. A grounded documentation subagent reports what the code actually does rather than what the `build_training_sets` docstring ("Clean, scale, and split...") suggests it does. This is the same discipline you would want in a model card.
 
 ## Learning outcome
 

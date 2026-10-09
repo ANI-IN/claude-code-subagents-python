@@ -1,5 +1,6 @@
 import pytest
 
+from churn_model.config import RANDOM_SEED
 from churn_model.data.loader import Row
 from churn_model.data.split import split_dataset
 
@@ -38,6 +39,12 @@ def test_same_seed_gives_the_same_split() -> None:
     assert split_dataset(rows, seed=7) == split_dataset(rows, seed=7)
 
 
+def test_default_seed_is_the_project_seed() -> None:
+    rows = make_rows(40)
+
+    assert split_dataset(rows) == split_dataset(rows, seed=RANDOM_SEED)
+
+
 def test_different_seeds_give_different_splits() -> None:
     rows = make_rows(40)
 
@@ -51,6 +58,13 @@ def test_split_preserves_the_churn_rate() -> None:
 
     assert sum(row["churned"] == 1.0 for row in train) == 8
     assert sum(row["churned"] == 1.0 for row in test) == 2
+
+
+def test_split_is_not_ordered_by_label() -> None:
+    train, _ = split_dataset(make_rows(40, churn_every=4))
+
+    first_half = {row["churned"] for row in train[: len(train) // 2]}
+    assert first_half == {0.0, 1.0}
 
 
 def test_split_does_not_modify_the_input() -> None:

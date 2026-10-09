@@ -24,9 +24,9 @@ The reviewer may rank the last two items as Critical or as Major, and it may add
 
 ## What to look for in the code
 
-Open `src/churn_model/training/prepare.py` and match each reported issue to its line. Then read the docstring at the top of the file, which lists the same four planted issues. Compare the two. A well-designed review subagent should surface what that docstring describes from the code and its own checklist.
+Open `src/churn_model/training/prepare.py` and match each reported issue to its line. Then compare the report with the list of planted issues in Exercise 1 or in section 2 of the project README. The file itself does not mention them, so everything the reviewer found came from reading the code against its checklist and the conventions in `CLAUDE.md`.
 
-Ask yourself which of these you would have caught on your own without the docstring as a hint. Target leakage and contamination are easy to miss when you are the one who wrote the pipeline, because the code runs, the tests pass, and the evaluation score looks great. A reviewer with these failure modes written into its checklist looks for them every time.
+Ask yourself which of these you would have caught on your own. Target leakage and contamination are easy to miss when you are the one who wrote the pipeline, because the code runs, the tests pass, and the evaluation score looks great. A reviewer with these failure modes written into its checklist looks for them every time. That is the value of encoding your team's review standards in one place.
 
 ## Important: these flaws are deliberate
 

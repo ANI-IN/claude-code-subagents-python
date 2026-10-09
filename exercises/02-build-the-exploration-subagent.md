@@ -30,6 +30,14 @@ Choose **Create new agent**, pick **Project** as the scope, and let Claude gener
 - Model: sonnet. Color: blue.
 - Output format: a short answer, a list of key locations with file path and line number, and a notes section for assumptions or gaps. It should cite locations rather than paste large blocks of code.
 
+`/agents` asks for some of these settings in its own steps rather than reading them from your brief. Before you move on, make sure the saved file matches the brief:
+
+- **Name.** Claude proposes a name. If it is not `codebase-explorer`, change the `name:` line and the file name to `codebase-explorer`. The prompts in later exercises use that exact name.
+- **Tools.** In the tool step, select only Glob, Grep, and Read. The read-only category can include extra tools such as WebFetch, so open the file afterwards and make sure the `tools:` line reads `Glob, Grep, Read`.
+- **Model and color.** Pick Sonnet and Blue in their steps.
+
+Compare the generated file with Option B below. The wording of the system prompt will differ, and that is fine. The name, the tools, and the output format should match.
+
 ### Option B: write the file yourself
 
 Create `.claude/agents/codebase-explorer.md`:
